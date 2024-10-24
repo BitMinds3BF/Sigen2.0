@@ -43,6 +43,7 @@
             this.btnGuardar = new System.Windows.Forms.Button();
             this.txtContraseña = new System.Windows.Forms.TextBox();
             this.cboxRol = new System.Windows.Forms.ComboBox();
+            this.cboxTipoCliente = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -204,16 +205,33 @@
             "Admin",
             "Entrenador",
             "TI"});
-            this.cboxRol.Location = new System.Drawing.Point(176, 181);
+            this.cboxRol.Location = new System.Drawing.Point(60, 175);
             this.cboxRol.Name = "cboxRol";
             this.cboxRol.Size = new System.Drawing.Size(223, 28);
             this.cboxRol.TabIndex = 13;
+            // 
+            // cboxTipoCliente
+            // 
+            this.cboxTipoCliente.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cboxTipoCliente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxTipoCliente.Enabled = false;
+            this.cboxTipoCliente.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.cboxTipoCliente.FormattingEnabled = true;
+            this.cboxTipoCliente.Items.AddRange(new object[] {
+            "-- Tipo de cliente --",
+            "Deportista",
+            "Paciente"});
+            this.cboxTipoCliente.Location = new System.Drawing.Point(295, 175);
+            this.cboxTipoCliente.Name = "cboxTipoCliente";
+            this.cboxTipoCliente.Size = new System.Drawing.Size(223, 28);
+            this.cboxTipoCliente.TabIndex = 14;
             // 
             // FormularioUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(571, 480);
+            this.Controls.Add(this.cboxTipoCliente);
             this.Controls.Add(this.cboxRol);
             this.Controls.Add(this.txtContraseña);
             this.Controls.Add(this.btnGuardar);
@@ -251,5 +269,6 @@
         public System.Windows.Forms.TextBox txtApellido;
         public System.Windows.Forms.TextBox txtContraseña;
         public System.Windows.Forms.ComboBox cboxRol;
+        public System.Windows.Forms.ComboBox cboxTipoCliente;
     }
 }

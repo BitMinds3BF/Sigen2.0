@@ -42,6 +42,21 @@ namespace BITMINDS.controladores
             Ventana.txtContraseña.Text = tempPass;
         }
 
+        public void RolUsuario_Changed(object sender, EventArgs e)
+        {
+            var rol = sender as ComboBox;
+            switch(rol.SelectedItem.ToString().ToLower())
+            {
+                case "cliente":
+                    Ventana.cboxTipoCliente.Enabled = true;
+                    break;
+                default:
+                    Ventana.cboxTipoCliente.Enabled = false;
+                    Ventana.cboxTipoCliente.SelectedIndex = 0;
+                    break;
+            }
+        }
+
         public void SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox tipoDocumento = (ComboBox)sender;            

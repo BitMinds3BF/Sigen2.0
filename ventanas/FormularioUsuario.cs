@@ -18,6 +18,7 @@ namespace BITMINDS.ventanas
             InitializeComponent();
             cboxTipoDocumento.SelectedIndex = 0;
             cboxRol.SelectedIndex = 0;
+            cboxTipoCliente.SelectedIndex = 0;
 
             controlador = FormularioUsuarioControlador.Instance;
             controlador.Ventana = this;
@@ -26,6 +27,7 @@ namespace BITMINDS.ventanas
             btnGenerarContraseña.Click += controlador.btnGenerarContraseña_Click;
 
             cboxTipoDocumento.SelectedIndexChanged += controlador.SelectedIndexChanged;
+            cboxRol.SelectedIndexChanged += controlador.RolUsuario_Changed;
 
             txtDocumento.Enter += controlador.EnterTxt;
             txtDocumento.Leave += controlador.LeaveTxt;
