@@ -12,7 +12,12 @@ namespace BITMINDS.controladores
     public class FormularioEjercicioControlador : ControladorBase
     {
         private FormularioEjercicioService service = new FormularioEjercicioService();
-        public FormularioEjercicio Ventana;
+        public FormularioEjercicio Ventana { get; set; }
+
+        public void Ventana_onLoad(object sender, EventArgs e)
+        {
+            Ventana.cboxRutinas.DataSource = service.Rutinas();
+        }
         public void BtnGuardar_Click(object sender, EventArgs e)
         {
             try
@@ -23,6 +28,7 @@ namespace BITMINDS.controladores
                     Descripcion = Ventana.txtDescripcion.Text,
                     GrupoMuscular = Ventana.cboxGrupoMuscular.Text.ToLower(),
                     Tipo = Ventana.cboxTipo.Text.ToLower(),
+                    Rutina = Convert.ToInt32(Ventana.cboxRutinas.Text)
                 };
                 service.GuardarEjercicio(ejercicio);
                 MessageBox.Show("Ejercicio guardado correctamente");

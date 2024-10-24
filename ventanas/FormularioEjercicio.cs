@@ -22,6 +22,8 @@ namespace BITMINDS.ventanas
             controlador = FormularioEjercicioControlador.Instance;
             controlador.Ventana = this;
 
+            Load += controlador.Ventana_onLoad;
+
             txtNombre.Enter += controlador.EnterTxt;
             txtNombre.Leave += controlador.LeaveTxt;
 

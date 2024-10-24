@@ -13,6 +13,6 @@ namespace BITMINDS.modelos
         public string Descripcion { get; set; }
         public string GrupoMuscular {  get; set; }
         public string Tipo {  get; set; }
-        public int RepeticionesAsignadas { get; set; }
+        public int Rutina { get; set; }
     }
 }

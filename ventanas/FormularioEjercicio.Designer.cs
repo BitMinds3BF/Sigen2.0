@@ -34,6 +34,8 @@
             this.btnGuardar = new System.Windows.Forms.Button();
             this.cboxGrupoMuscular = new System.Windows.Forms.ComboBox();
             this.cboxTipo = new System.Windows.Forms.ComboBox();
+            this.cboxRutinas = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -68,7 +70,7 @@
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(123, 364);
+            this.btnGuardar.Location = new System.Drawing.Point(123, 425);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(312, 36);
             this.btnGuardar.TabIndex = 11;
@@ -108,11 +110,36 @@
             this.cboxTipo.Size = new System.Drawing.Size(312, 28);
             this.cboxTipo.TabIndex = 14;
             // 
+            // cboxRutinas
+            // 
+            this.cboxRutinas.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cboxRutinas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxRutinas.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.cboxRutinas.FormattingEnabled = true;
+            this.cboxRutinas.Items.AddRange(new object[] {
+            "-- Seleccionar rutina--"});
+            this.cboxRutinas.Location = new System.Drawing.Point(123, 380);
+            this.cboxRutinas.Name = "cboxRutinas";
+            this.cboxRutinas.Size = new System.Drawing.Size(312, 28);
+            this.cboxRutinas.TabIndex = 15;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(123, 359);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(114, 16);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "Seleccionar rutina";
+            // 
             // FormularioEjercicio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(571, 480);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.cboxRutinas);
             this.Controls.Add(this.cboxTipo);
             this.Controls.Add(this.cboxGrupoMuscular);
             this.Controls.Add(this.btnGuardar);
@@ -134,5 +161,7 @@
         public System.Windows.Forms.ComboBox cboxGrupoMuscular;
         public System.Windows.Forms.Button btnGuardar;
         public System.Windows.Forms.ComboBox cboxTipo;
+        public System.Windows.Forms.ComboBox cboxRutinas;
+        private System.Windows.Forms.Label label2;
     }
 }

@@ -11,6 +11,7 @@ namespace BITMINDS.services
     public class FormularioEjercicioService
     {
         private EjercicioRepositorio repositorio = new EjercicioRepositorio();
+        private RutinaRepositorio rutinaRepositorio = new RutinaRepositorio();
         public void GuardarEjercicio(Ejercicio ejercicio)
         {
             if (ejercicio.Nombre == string.Empty &&
@@ -38,5 +39,7 @@ namespace BITMINDS.services
 
             repositorio.Insertar(ejercicio);
         }
+
+        public List<int> Rutinas() => rutinaRepositorio.ObtenerRutinas();
     }
 }

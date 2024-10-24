@@ -12,8 +12,8 @@ namespace BITMINDS.repositorios
     {
         public void Insertar(Ejercicio ejercicio)
         {
-            string query = "INSERT INTO ejercicios(nombre, descripcion, grupomuscular, tipo) " +
-                "VALUES (@nombre, @descripcion, @grupomuscular, @tipo)";
+            string query = "INSERT INTO ejercicios(nombre, descripcion, grupomuscular, tipo, idrutina) " +
+                "VALUES (@nombre, @descripcion, @grupomuscular, @tipo, @idrutina)";
 
             using (MySqlConnection connection = new MySqlConnection(ConnectionString))
             {
@@ -22,6 +22,7 @@ namespace BITMINDS.repositorios
                 command.Parameters.AddWithValue("@descripcion", ejercicio.Descripcion);
                 command.Parameters.AddWithValue("@grupomuscular", ejercicio.GrupoMuscular);
                 command.Parameters.AddWithValue("@tipo", ejercicio.Tipo);
+                command.Parameters.AddWithValue("@idrutina", ejercicio.Rutina);
 
                 connection.Open();
                 command.ExecuteNonQuery();
