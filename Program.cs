@@ -1,12 +1,5 @@
-﻿using BITMINDS.controladores;
-using BITMINDS.modelos;
-using BITMINDS.repositorios.cliente;
-using BITMINDS.repositorios.Usuarios;
-using BITMINDS.ventanas;
+﻿using BITMINDS.ventanas;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BITMINDS
