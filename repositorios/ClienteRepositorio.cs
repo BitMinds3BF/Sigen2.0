@@ -130,12 +130,12 @@ namespace BITMINDS.repositorios.cliente
                 " INNER JOIN usuario u" +
                 " ON u.id_usuario = l.id_usuario WHERE u.rol = 'cliente'";
 
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
             {
-                SqlCommand command = new SqlCommand(query, connection);
+                MySqlCommand command = new MySqlCommand(query, connection);
                 connection.Open();
 
-                using (SqlDataReader reader = command.ExecuteReader())
+                using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
@@ -151,6 +151,7 @@ namespace BITMINDS.repositorios.cliente
                             Numero = reader["numero"].ToString(),
 
                         };
+                       clientes.Add(cliente);
                     }
                 }
             }

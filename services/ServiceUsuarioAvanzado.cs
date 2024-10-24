@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BITMINDS.modelos;
+using BITMINDS.repositorios;
+using BITMINDS.repositorios.cliente;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +11,11 @@ namespace BITMINDS.services
 {
     internal class ServiceUsuarioAvanzado
     {
-
+        private ClienteRepositorio clienteRepositorio = new ClienteRepositorio();
+        private EjercicioRepositorio ejercicioRepositorio = new EjercicioRepositorio();
+        private DeporteRepositorio deporteRepositorio = new DeporteRepositorio();
+        public List<Cliente> Clientes() => clienteRepositorio.ObtenerTodos();
+        public List<Ejercicio> Ejercicios() => ejercicioRepositorio.ObtenerTodosEjercicios();
+        // public List<Deporte> Deportes() => deporteRepositorio
     }
 }
