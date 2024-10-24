@@ -23,7 +23,7 @@ namespace BITMINDS.controladores
         public void Ventana_MostrarEjercicios(object sender, EventArgs e)
         {
             Ventana.lblTitle.Text = $"Planes de entrenamiento: {cliente.Nombre} {cliente.Apellido}";
-        //    Ventana.dgvItems.DataSource = service.MisEjercicoos();
+            Ventana.dgvItems.DataSource = service.MisEjercicios();
         }
 
         public void Ventana_MostrarDesempeños(object sender, EventArgs e)

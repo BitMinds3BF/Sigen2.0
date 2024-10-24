@@ -1,4 +1,5 @@
 ﻿using BITMINDS.modelos;
+using BITMINDS.repositorios;
 using BITMINDS.repositorios.cliente;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ namespace BITMINDS.services
     public class ClienteService
     {
         private ClienteRepositorio ClienteRepositorio = new ClienteRepositorio();
+        private EjercicioRepositorio ejercicioRepositorio = new EjercicioRepositorio();
 
         public ClienteService(string documento, string tipoDocumento)
         {
@@ -24,7 +26,7 @@ namespace BITMINDS.services
             return cliente;
         }
 
-       // public List<Ejercicio> MisEjercicoos() => ClienteRepositorio.ObtenerEjercicios(documento, tipoDocumento);
+        public List<Ejercicio> MisEjercicios() => ejercicioRepositorio.ObtenerEjercicios(documento, tipoDocumento);
 
         private string documento;
         private string tipoDocumento;

@@ -12,11 +12,11 @@ namespace BITMINDS.repositorios
     {
         public void Insertar(Deporte deporte)
         {
-            string query = "INSERT INTO deporte(nombre) VALUES(@nombre)";
+            string query = "INSERT INTO deporte(deporte) VALUES(@deporte)";
             using (MySqlConnection connection = new MySqlConnection(ConnectionString))
             {
                 var command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@nombre", deporte.Nombre);
+                command.Parameters.AddWithValue("@deporte", deporte.Nombre);
                 connection.Open();
                 command.ExecuteNonQuery();
             }

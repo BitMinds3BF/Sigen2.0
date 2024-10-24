@@ -20,6 +20,7 @@ namespace BITMINDS.controladores
                     Nombre = Ventana.txtDeporte.Text
                 };
                 service.GuardarDeporte(deporte);
+                MessageBox.Show("Deporte agregado correctamente");
             }
             catch (Exception ex) 
             {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BITMINDS.controladores;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,15 @@ namespace BITMINDS.ventanas
         public FormularioDeporte()
         {
             InitializeComponent();
+            controlador = FormularioDeporteControlador.Instance;
+            controlador.Ventana = this;
+
+            txtDeporte.Enter += controlador.EnterTxt;
+            txtDeporte.Leave += controlador.LeaveTxt;
+
+            btnGuardar.Click += controlador.BtnGuardar_Click;
         }
+
+        private FormularioDeporteControlador controlador;
     }
 }
