@@ -69,8 +69,8 @@ namespace BITMINDS.controladores
         }
         private void mostrarDeportes() 
         {
-           // var deportes = service.Deportes();
-           // ventana.dataGridMostrar.DataSource= deportes;
+           var deportes = service.Deportes();
+           ventana.dataGridMostrar.DataSource= deportes;
         }
 
         public static UsuarioAvanzadoControlador Instance

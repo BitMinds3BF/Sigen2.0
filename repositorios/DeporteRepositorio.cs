@@ -21,5 +21,30 @@ namespace BITMINDS.repositorios
                 command.ExecuteNonQuery();
             }
         }
+        public List<Deporte> ObtenerDeportes() 
+        {
+            string query = $"SELECT * FROM deporte";
+
+            List<Deporte> deportes = new List<Deporte>();
+            using (MySqlConnection conn = new MySqlConnection(ConnectionString))
+            {
+                var cmd = new MySqlCommand(query, conn);
+                conn.Open();
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    deportes.Add
+                    (
+                        new Deporte()
+                        {
+                            Id = Convert.ToInt32(reader["id_deporte"]),
+                            Nombre = reader["deporte"].ToString(),
+
+                        }
+                    );
+                }   
+            }
+            return deportes;
+        }
     }
 }

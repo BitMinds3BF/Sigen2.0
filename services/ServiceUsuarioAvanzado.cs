@@ -16,6 +16,6 @@ namespace BITMINDS.services
         private DeporteRepositorio deporteRepositorio = new DeporteRepositorio();
         public List<Cliente> Clientes() => clienteRepositorio.ObtenerTodos();
         public List<Ejercicio> Ejercicios() => ejercicioRepositorio.ObtenerTodosEjercicios();
-        // public List<Deporte> Deportes() => deporteRepositorio
+        public List<Deporte> Deportes() => deporteRepositorio.ObtenerDeportes();
     }
 }
