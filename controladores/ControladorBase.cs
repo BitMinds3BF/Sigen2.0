@@ -13,6 +13,8 @@ namespace BITMINDS.controladores
         public void EnterTxt(object sender, EventArgs e)
         {
             var campo = sender as TextBox;
+            bool placeHolder = campo.Text == ObtenerPlaceHolder(campo);
+
             if (placeHolder)
             {
                 if ((campo.Tag as string) == "password")
@@ -20,7 +22,6 @@ namespace BITMINDS.controladores
                     campo.PasswordChar = '*';
                 }
                 campo.Text = string.Empty;
-                placeHolder = false;
             }
         }
 
@@ -33,14 +34,11 @@ namespace BITMINDS.controladores
                 {
                     campo.PasswordChar = '\0';
                 }
+
                 campo.Text = ObtenerPlaceHolder(campo);
             }
-
-            placeHolder = true;
         }
 
         public abstract string ObtenerPlaceHolder(TextBox campo);
-
-        private bool placeHolder = true;
     }
 }
