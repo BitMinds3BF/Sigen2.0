@@ -76,6 +76,17 @@ namespace BITMINDS.services
             ClienteRepositorio.InsertarLoguea(cliente.NumDoc, cliente.TipoDoc, idUsuario);
         }
 
+        public void GuardarCliente(Cliente cliente, string tipoCliente)
+        {
+            if (tipoCliente == "deportista")
+            {
+                ClienteRepositorio.InsertarDeportista(cliente.NumDoc, cliente.TipoDoc);
+            } else if (tipoCliente == "paciente")
+            {
+                ClienteRepositorio.InsertarPaciente(cliente.NumDoc, cliente.TipoDoc);
+            }
+        }
+
         private bool VerificarEmail(string email)
         {
             //Patron sacado de https://referencesource.microsoft.com/#System.ComponentModel.DataAnnotations/DataAnnotations/EmailAddressAttribute.cs

@@ -63,6 +63,36 @@ namespace BITMINDS.repositorios.cliente
             }
         }
 
+        public void InsertarDeportista(string num_doc, string tipo_doc)
+        {
+            string query = "INSERT INTO deportista(num_doc, tipo_doc) VALUES" +
+                "(@num_doc, @tipo_doc)";
+
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+            {
+                var command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@num_doc", num_doc);
+                command.Parameters.AddWithValue("@tipo_doc", tipo_doc);
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public void InsertarPaciente(string num_doc, string tipo_doc)
+        {
+            string query = "INSERT INTO paciente(num_doc, tipo_doc) VALUES " +
+                "(@num_doc, @tipo_doc)";
+
+            using (var connection = new MySqlConnection(ConnectionString))
+            {
+                var command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@num_doc", num_doc);
+                command.Parameters.AddWithValue("@tipo_doc", tipo_doc);
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+
         public Cliente ObtenerCliente(string documento)
         {
             string query = "SELECT u.*, (SELECT GROUP_CONCAT(t.numero SEPARATOR ',') FROM telefonos t " +

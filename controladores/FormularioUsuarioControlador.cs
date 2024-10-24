@@ -29,6 +29,13 @@ namespace BITMINDS.controladores
                     Rol = Ventana.cboxRol.Text.ToLower()
                 };
                 service.GuardarUsuario(usuario);
+
+                if (Ventana.cboxRol.SelectedItem.ToString().ToLower() == "cliente")
+                {
+                    string tipoCliente = Ventana.cboxTipoCliente.SelectedItem.ToString().ToLower();
+                    service.GuardarCliente(usuario, tipoCliente);
+                }
+
                 MessageBox.Show("Usuario guardado correctamente!");
             }
             catch (Exception ex) {
