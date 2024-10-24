@@ -12,15 +12,15 @@ namespace BITMINDS.repositorios
     {
         public void Insertar(Ejercicio ejercicio)
         {
-            string query = "INSERT INTO ejercicio(nombre, descripcion, grupo_muscular, tipo) " +
-                "VALUES (@nombre, @descripcion, @grupo_muscular, @tipo)";
+            string query = "INSERT INTO ejercicios(nombre, descripcion, grupomuscular, tipo) " +
+                "VALUES (@nombre, @descripcion, @grupomuscular, @tipo)";
 
             using (MySqlConnection connection = new MySqlConnection(ConnectionString))
             {
                 MySqlCommand command = new MySqlCommand(query, connection);
                 command.Parameters.AddWithValue("@nombre", ejercicio.Nombre);
                 command.Parameters.AddWithValue("@descripcion", ejercicio.Descripcion);
-                command.Parameters.AddWithValue("@grupo_muscular", ejercicio.GrupoMuscular);
+                command.Parameters.AddWithValue("@grupomuscular", ejercicio.GrupoMuscular);
                 command.Parameters.AddWithValue("@tipo", ejercicio.Tipo);
 
                 connection.Open();
@@ -50,10 +50,38 @@ namespace BITMINDS.repositorios
                             Id = Convert.ToInt32(reader["id_ejer"]),
                             Nombre = reader["nombre"].ToString(),
                             Descripcion = reader["descripcion"].ToString(),
-                            GrupoMuscular = reader["grupo_muscular"].ToString(),
+                            GrupoMuscular = reader["grupomuscular"].ToString(),
                             Tipo = reader["tipo"].ToString(),
 
-                            RepeticionesAsignadas = Convert.ToInt32(reader["repeticiones"])
+                        }
+                    );
+                }
+            }
+
+            return ejercicios;
+        }
+        public List<Ejercicio> ObtenerTodosEjercicios()
+        {
+            string query = $"SELECT * FROM ejercicios";
+
+            List<Ejercicio> ejercicios = new List<Ejercicio>();
+            using (MySqlConnection conn = new MySqlConnection(ConnectionString))
+            {
+                var cmd = new MySqlCommand(query, conn);
+                conn.Open();
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ejercicios.Add
+                    (
+                        new Ejercicio()
+                        {
+                            Id = Convert.ToInt32(reader["id_ejer"]),
+                            Nombre = reader["nombre"].ToString(),
+                            Descripcion = reader["descripcion"].ToString(),
+                            GrupoMuscular = reader["grupomuscular"].ToString(),
+                            Tipo = reader["tipo"].ToString(),
+
                         }
                     );
                 }

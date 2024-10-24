@@ -94,7 +94,6 @@
     <Compile Include="repositorios\DeporteRepositorio.cs" />
     <Compile Include="repositorios\EjercicioRepositorio.cs" />
     <Compile Include="repositorios\RepositorioBase.cs" />
-    <Compile Include="repositorios\AvanzadoRepositorio.cs" />
     <Compile Include="services\ClienteService.cs" />
     <Compile Include="services\FormularioDeporteService.cs" />
     <Compile Include="services\FormularioEjercicioService.cs" />

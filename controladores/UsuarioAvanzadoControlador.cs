@@ -42,16 +42,37 @@ namespace BITMINDS.controladores
                 var formularioUsuario = new ventanas.FormularioUsuario();
 
                 formularioUsuario.ShowDialog();
-            }   
+            }
+            else if (ventana.radiobtnEjercicios.Checked) 
+            {
+                var formularioEjercicio = new ventanas.FormularioEjercicio();
+
+                formularioEjercicio.ShowDialog();
+            }
+            else if (ventana.radiobtnDeportes.Checked) 
+            {
+                var formularioDeporte = new ventanas.FormularioDeporte();
+                
+                formularioDeporte.ShowDialog();
+            }
         }
 
         private void mostrarClientes() 
         {
-            //var clientes = service.ObtenerTodoslosClientes();
-            //ventana.dataGridMostrar.DataSource = clientes;
+            var clientes = service.Clientes();
+            ventana.dataGridMostrar.DataSource = clientes;
         }
-        private void mostrarEjercicios() { }
-        private void mostrarDeportes() { }
+        private void mostrarEjercicios() 
+        {
+            var ejercicios = service.Ejercicios();
+            ventana.dataGridMostrar.DataSource = ejercicios;
+        }
+        private void mostrarDeportes() 
+        {
+           // var deportes = service.Deportes();
+           // ventana.dataGridMostrar.DataSource= deportes;
+        }
+
         public static UsuarioAvanzadoControlador Instance
         {
             get
