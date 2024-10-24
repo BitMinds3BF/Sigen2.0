@@ -29,14 +29,14 @@ namespace BITMINDS.repositorios
             }
         }
 
-        public List<Ejercicio> ObtenerEjercicios(string documento, string tipo)
+        public List<EjercicioAsignado> ObtenerEjerciciosAsignados(string documento, string tipo)
         {
             string query = $"SELECT e.*, ad.repeticiones FROM ejercicios e " +
-                $"INNER JOIN asigna_d ad ON e.id_ejer = ad.id_ejer " +
+                $"INNER JOIN asigna_d ad ON e.id_ejer = ad.id_ejercicio " +
                 $"INNER JOIN cliente c ON c.num_doc = ad.num_doc AND c.tipo_doc = ad.tipo_doc " +
                 $"WHERE c.num_doc = '{documento}' AND c.tipo_doc = '{tipo}'";
 
-            List<Ejercicio> ejercicios = new List<Ejercicio>();
+            List<EjercicioAsignado> ejercicios = new List<EjercicioAsignado>();
             using (MySqlConnection conn = new MySqlConnection(ConnectionString))
             {
                 var cmd = new MySqlCommand(query, conn);
@@ -46,14 +46,15 @@ namespace BITMINDS.repositorios
                 {
                     ejercicios.Add
                     (
-                        new Ejercicio()
+                        new EjercicioAsignado()
                         {
                             Id = Convert.ToInt32(reader["id_ejer"]),
                             Nombre = reader["nombre"].ToString(),
                             Descripcion = reader["descripcion"].ToString(),
                             GrupoMuscular = reader["grupomuscular"].ToString(),
                             Tipo = reader["tipo"].ToString(),
-
+                            Rutina = Convert.ToInt32(reader["idrutina"]),
+                            Repeticiones = Convert.ToInt32(reader["repeticiones"])
                         }
                     );
                 }

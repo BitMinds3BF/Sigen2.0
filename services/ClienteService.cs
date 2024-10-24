@@ -26,7 +26,7 @@ namespace BITMINDS.services
             return cliente;
         }
 
-        public List<Ejercicio> MisEjercicios() => ejercicioRepositorio.ObtenerEjercicios(documento, tipoDocumento);
+        public List<EjercicioAsignado> MisEjercicios() => ejercicioRepositorio.ObtenerEjerciciosAsignados(documento, tipoDocumento);
 
         private string documento;
         private string tipoDocumento;

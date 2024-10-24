@@ -18,11 +18,12 @@ namespace BITMINDS.controladores
         {
             service = new ClienteService(Ventana.Documento, Ventana.TipoDocumento);
             cliente = service.MisDatos();
+            Ventana.lblNombreCompleto.Text = $"{cliente.Nombre} {cliente.Apellido}";
         }
 
         public void Ventana_MostrarEjercicios(object sender, EventArgs e)
         {
-            Ventana.lblTitle.Text = $"Planes de entrenamiento: {cliente.Nombre} {cliente.Apellido}";
+            Ventana.lblTitle.Text = $"Planes de entrenamiento";
             Ventana.dgvItems.DataSource = service.MisEjercicios();
         }
 

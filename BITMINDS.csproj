@@ -85,6 +85,7 @@
     <Compile Include="controladores\UsuarioAvanzadoControlador.cs" />
     <Compile Include="modelos\Deporte.cs" />
     <Compile Include="modelos\Ejercicio.cs" />
+    <Compile Include="modelos\EjercicioAsignado.cs" />
     <Compile Include="modelos\Usuario.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
