@@ -28,6 +28,13 @@ namespace BITMINDS.services
 
         public List<EjercicioAsignado> MisEjercicios() => ejercicioRepositorio.ObtenerEjerciciosAsignados(documento, tipoDocumento);
 
+        public EjercicioAsignado MarcarEjercicioCompletado(EjercicioAsignado ejercicio)
+        {
+            ejercicio.Realizado = DateTime.Now.ToString("yyyy-MM-dd");
+            ejercicioRepositorio.GuardarEjercicioAsignadoCompletado(ejercicio, documento, tipoDocumento);
+            return ejercicio;
+        }
+
         private string documento;
         private string tipoDocumento;
     }

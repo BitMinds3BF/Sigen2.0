@@ -3,6 +3,7 @@ using MySqlConnector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -90,6 +91,20 @@ namespace BITMINDS.repositorios
             }
 
             return ejercicios;
+        }
+
+        public void GuardarEjercicioAsignadoCompletado(EjercicioAsignado ejercicio, string num_doc, string tipo_doc)
+        {
+            string query = "UPDATE asigna_d SET realizado_d = @realizado" +
+                $" WHERE num_doc = '{num_doc}' AND tipo_doc = '{tipo_doc}' AND id_ejercicio = {ejercicio.Id}";
+
+            using (var conn = new MySqlConnection(ConnectionString))
+            {
+                var command = new MySqlCommand(query, conn);
+                command.Parameters.AddWithValue("@realizado", ejercicio.Realizado);
+                conn.Open();
+                command.ExecuteNonQuery();
+            }
         }
     }
 }

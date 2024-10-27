@@ -24,8 +24,12 @@ namespace BITMINDS.ventanas
 
             Load += controlador.Ventana_Load;
 
-            btnMostrarEjercicios.Click += controlador.Ventana_MostrarEjercicios;
-            btnMostrarDesempeño.Click += controlador.Ventana_MostrarDesempeños;
+            btnMostrarEjercicios.Click += controlador.BtnMostrarEjercicios_Click;
+            btnMostrarDesempeño.Click += controlador.BtnMostrarDesempeños_Click;
+            btnCerrarSesion.Click += controlador.BtnCerrarSesion_Click;
+            btnMarcarCompletado.Click += controlador.BtnMarcarCompletado_Click;
+
+            dgvItems.RowStateChanged += controlador.DgvItems_RowStateChanged;
         }
     }
 }

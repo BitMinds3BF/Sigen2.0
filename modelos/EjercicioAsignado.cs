@@ -8,6 +8,7 @@ namespace BITMINDS.modelos
 {
     public class EjercicioAsignado : Ejercicio
     {
-        public int Repeticiones {  get; set; }
+        public string Realizado { get; set; }
+        public int Repeticiones { get; set; }
     }
 }
