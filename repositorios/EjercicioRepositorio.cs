@@ -32,7 +32,7 @@ namespace BITMINDS.repositorios
 
         public List<EjercicioAsignado> ObtenerEjerciciosAsignados(string documento, string tipo)
         {
-            string query = $"SELECT e.*, ad.repeticiones FROM ejercicios e " +
+            string query = $"SELECT e.*, ad.repeticiones, ad.realizado_d FROM ejercicios e " +
                 $"INNER JOIN asigna_d ad ON e.id_ejer = ad.id_ejercicio " +
                 $"INNER JOIN cliente c ON c.num_doc = ad.num_doc AND c.tipo_doc = ad.tipo_doc " +
                 $"WHERE c.num_doc = '{documento}' AND c.tipo_doc = '{tipo}'";
@@ -55,7 +55,8 @@ namespace BITMINDS.repositorios
                             GrupoMuscular = reader["grupomuscular"].ToString(),
                             Tipo = reader["tipo"].ToString(),
                             Rutina = Convert.ToInt32(reader["idrutina"]),
-                            Repeticiones = Convert.ToInt32(reader["repeticiones"])
+                            Repeticiones = Convert.ToInt32(reader["repeticiones"]),
+                            Realizado = reader["realizado_d"].ToString()
                         }
                     );
                 }

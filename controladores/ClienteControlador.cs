@@ -33,7 +33,7 @@ namespace BITMINDS.controladores
                 ejercicioSelecionadoRowIndex = e.Row.Index;
                 string realizado = e.Row.Cells["realizado"].Value as string;
 
-                if (realizado == null)
+                if (realizado.Length == 0)
                 {
                     Ventana.btnMarcarCompletado.Text = "Marcar como completado";
                     Ventana.btnMarcarCompletado.Enabled = true;
@@ -51,7 +51,10 @@ namespace BITMINDS.controladores
             binding.ResetBindings(false);
 
             Ventana.lblTitle.Text = $"Planes de entrenamiento";
-            Ventana.btnMarcarCompletado.Visible = true;
+            if (binding.List.Count > 0)
+            {
+                Ventana.btnMarcarCompletado.Visible = true;
+            }
         }
 
         public void BtnMostrarDesempeños_Click(object sender, EventArgs e)
