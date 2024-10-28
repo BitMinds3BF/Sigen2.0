@@ -14,7 +14,7 @@ namespace BITMINDS.controladores
     {
         public ventanas.Cliente Ventana { get; set; }
         private modelos.Cliente cliente;
-        private int ejercicioSelecionadoRowIndex;
+        private int indiceFilaSelecionada;
         private BindingSource binding = new BindingSource();
         private bool mostrandoEjercicios = false;
 
@@ -47,7 +47,7 @@ namespace BITMINDS.controladores
                     }
                 }
 
-                ejercicioSelecionadoRowIndex = e.Row.Index;
+                indiceFilaSelecionada = e.Row.Index;
             }
         }
 
@@ -77,10 +77,10 @@ namespace BITMINDS.controladores
         public void BtnMarcarCompletado_Click(object sender, EventArgs e)
         {
             EjercicioAsignado ejercicio = service.MarcarEjercicioCompletado(
-                (EjercicioAsignado)binding.List[ejercicioSelecionadoRowIndex] //Este es el ejercicio que esta seleccionado en el datagrid
+                (EjercicioAsignado)binding.List[indiceFilaSelecionada] //Este es el ejercicio que esta seleccionado en el datagrid
             );
-            binding.List[ejercicioSelecionadoRowIndex] = ejercicio;
-            binding.ResetItem(ejercicioSelecionadoRowIndex); //Usamos ResetItem para que se invalide el actual y se actualice
+            binding.List[indiceFilaSelecionada] = ejercicio;
+            binding.ResetItem(indiceFilaSelecionada); //Usamos ResetItem para que se invalide el actual y se actualice
 
             Ventana.btnMarcarCompletado.Enabled = false;
             Ventana.btnMarcarCompletado.Text = "Ejercicio completado";
