@@ -10,6 +10,7 @@ namespace BITMINDS.services
     {
         private ClienteRepositorio ClienteRepositorio = new ClienteRepositorio();
         private EjercicioRepositorio ejercicioRepositorio = new EjercicioRepositorio();
+        private CalificacionRepositorio calificacionRepositorio = new CalificacionRepositorio();
 
         public ClienteService(string documento, string tipoDocumento)
         {
@@ -27,6 +28,8 @@ namespace BITMINDS.services
         }
 
         public List<EjercicioAsignado> MisEjercicios() => ejercicioRepositorio.ObtenerEjerciciosAsignados(documento, tipoDocumento);
+
+        public List<Calificacion> MiDesempeño() => calificacionRepositorio.ObtenerCalificaciones(documento, tipoDocumento);
 
         public EjercicioAsignado MarcarEjercicioCompletado(EjercicioAsignado ejercicio)
         {
