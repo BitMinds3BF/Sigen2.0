@@ -14,8 +14,9 @@ namespace BITMINDS.controladores
     {
         public ventanas.Cliente Ventana { get; set; }
         private modelos.Cliente cliente;
-        private int ejercicioSelecionadoRowIndex;
+        private int indiceFilaSelecionada;
         private BindingSource binding = new BindingSource();
+        private bool mostrandoEjercicios = false;
 
         public void Ventana_Load(object sender, EventArgs e)
         {
@@ -23,38 +24,52 @@ namespace BITMINDS.controladores
             cliente = service.MisDatos();
             Ventana.dgvItems.DataSource = binding;
             Ventana.lblNombreCompleto.Text = $"{cliente.Nombre} {cliente.Apellido}";
+            Ventana.lblDocumento.Text = $"{cliente.TipoDoc} {cliente.NumDoc}";
         }
 
         public void DgvItems_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
         {
             if (e.StateChanged == DataGridViewElementStates.Selected)
             {
-                ejercicioSelecionadoRowIndex = e.Row.Index;
-                string realizado = e.Row.Cells["realizado"].Value as string;
+                if (mostrandoEjercicios)
+                {
+                    var ejercicioAsignado = (EjercicioAsignado)binding.List[e.Row.Index]; //Este es el ejercicio que esta seleccionado en el datagrid
 
-                if (realizado == null)
-                {
-                    Ventana.btnMarcarCompletado.Text = "Marcar como completado";
-                    Ventana.btnMarcarCompletado.Enabled = true;
-                } else
-                {
-                    Ventana.btnMarcarCompletado.Text = "Ejercicio completado";
-                    Ventana.btnMarcarCompletado.Enabled = false;
+                    if (ejercicioAsignado.Realizado.Length == 0)
+                    {
+                        Ventana.btnMarcarCompletado.Text = "Marcar como completado";
+                        Ventana.btnMarcarCompletado.Enabled = true;
+                    }
+                    else
+                    {
+                        Ventana.btnMarcarCompletado.Text = "Ejercicio completado";
+                        Ventana.btnMarcarCompletado.Enabled = false;
+                    }
                 }
+
+                indiceFilaSelecionada = e.Row.Index;
             }
         }
 
         public void BtnMostrarEjercicios_Click(object sender, EventArgs e)
         {
+            mostrandoEjercicios = true;
             binding.DataSource = service.MisEjercicios();
             binding.ResetBindings(false);
 
             Ventana.lblTitle.Text = $"Planes de entrenamiento";
-            Ventana.btnMarcarCompletado.Visible = true;
+            if (binding.List.Count > 0)
+            {
+                Ventana.btnMarcarCompletado.Visible = true;
+            }
         }
 
         public void BtnMostrarDesempeños_Click(object sender, EventArgs e)
         {
+            mostrandoEjercicios = false;
+            binding.DataSource = service.MiDesempeño();
+            binding.ResetBindings(false);
+
             Ventana.lblTitle.Text = "Mis desempeños";
             Ventana.btnMarcarCompletado.Visible = false;
         }
@@ -62,10 +77,10 @@ namespace BITMINDS.controladores
         public void BtnMarcarCompletado_Click(object sender, EventArgs e)
         {
             EjercicioAsignado ejercicio = service.MarcarEjercicioCompletado(
-                (EjercicioAsignado)binding.List[ejercicioSelecionadoRowIndex]
+                (EjercicioAsignado)binding.List[indiceFilaSelecionada] //Este es el ejercicio que esta seleccionado en el datagrid
             );
-            binding.List[ejercicioSelecionadoRowIndex] = ejercicio;
-            binding.ResetItem(ejercicioSelecionadoRowIndex); //Usamos ResetItem para que se invalide el actual y se actualice
+            binding.List[indiceFilaSelecionada] = ejercicio;
+            binding.ResetItem(indiceFilaSelecionada); //Usamos ResetItem para que se invalide el actual y se actualice
 
             Ventana.btnMarcarCompletado.Enabled = false;
             Ventana.btnMarcarCompletado.Text = "Ejercicio completado";

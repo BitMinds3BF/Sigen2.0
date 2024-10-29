@@ -35,6 +35,7 @@
             this.lblNombreCompleto = new System.Windows.Forms.Label();
             this.btnMarcarCompletado = new System.Windows.Forms.Button();
             this.btnCerrarSesion = new System.Windows.Forms.Button();
+            this.lblDocumento = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvItems)).BeginInit();
             this.SuspendLayout();
             // 
@@ -42,11 +43,16 @@
             // 
             this.dgvItems.AllowUserToAddRows = false;
             this.dgvItems.AllowUserToDeleteRows = false;
+            this.dgvItems.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvItems.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             this.dgvItems.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.dgvItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvItems.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvItems.Location = new System.Drawing.Point(12, 88);
+            this.dgvItems.MultiSelect = false;
             this.dgvItems.Name = "dgvItems";
             this.dgvItems.ReadOnly = true;
+            this.dgvItems.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.dgvItems.RowHeadersVisible = false;
             this.dgvItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvItems.Size = new System.Drawing.Size(625, 350);
             this.dgvItems.TabIndex = 3;
@@ -54,10 +60,10 @@
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(11, 38);
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.Location = new System.Drawing.Point(11, 46);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(391, 45);
+            this.lblTitle.Size = new System.Drawing.Size(361, 40);
             this.lblTitle.TabIndex = 4;
             this.lblTitle.Text = "Planes de entrenamiento";
             // 
@@ -83,7 +89,7 @@
             // 
             this.lblNombreCompleto.AutoSize = true;
             this.lblNombreCompleto.Font = new System.Drawing.Font("Segoe UI", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNombreCompleto.Location = new System.Drawing.Point(14, 13);
+            this.lblNombreCompleto.Location = new System.Drawing.Point(14, 6);
             this.lblNombreCompleto.Name = "lblNombreCompleto";
             this.lblNombreCompleto.Size = new System.Drawing.Size(163, 25);
             this.lblNombreCompleto.TabIndex = 7;
@@ -108,11 +114,22 @@
             this.btnCerrarSesion.Text = "Cerrar sesion";
             this.btnCerrarSesion.UseVisualStyleBackColor = true;
             // 
+            // lblDocumento
+            // 
+            this.lblDocumento.AutoSize = true;
+            this.lblDocumento.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDocumento.Location = new System.Drawing.Point(17, 31);
+            this.lblDocumento.Name = "lblDocumento";
+            this.lblDocumento.Size = new System.Drawing.Size(109, 15);
+            this.lblDocumento.TabIndex = 10;
+            this.lblDocumento.Text = "Documento 234324";
+            // 
             // Cliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblDocumento);
             this.Controls.Add(this.btnCerrarSesion);
             this.Controls.Add(this.btnMarcarCompletado);
             this.Controls.Add(this.lblNombreCompleto);
@@ -136,5 +153,6 @@
         public System.Windows.Forms.Label lblNombreCompleto;
         private System.Windows.Forms.Button btnCerrarSesion;
         public System.Windows.Forms.Button btnMarcarCompletado;
+        public System.Windows.Forms.Label lblDocumento;
     }
 }

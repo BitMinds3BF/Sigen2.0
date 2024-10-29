@@ -83,6 +83,7 @@
     <Compile Include="controladores\ClienteControlador.cs" />
     <Compile Include="controladores\LoginControlador.cs" />
     <Compile Include="controladores\UsuarioAvanzadoControlador.cs" />
+    <Compile Include="modelos\Calificacion.cs" />
     <Compile Include="modelos\Deporte.cs" />
     <Compile Include="modelos\Ejercicio.cs" />
     <Compile Include="modelos\EjercicioAsignado.cs" />
@@ -92,6 +93,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="repositorios\CalificacionRepositorio.cs" />
     <Compile Include="repositorios\DeporteRepositorio.cs" />
     <Compile Include="repositorios\EjercicioRepositorio.cs" />
     <Compile Include="repositorios\RepositorioBase.cs" />
