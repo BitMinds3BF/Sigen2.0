@@ -33,6 +33,8 @@ namespace BITMINDS.repositorios
                 connection.Open();
                 using (var reader = command.ExecuteReader())
                 {
+                    reader.Read();
+
                     return new Deporte()
                     {
                         Id = reader.GetInt32("id"),
