@@ -13,6 +13,7 @@ namespace BITMINDS.ventanas
 {
     public partial class FormularioDeporte : Form
     {
+        public int Id { get; set; }
         public FormularioDeporte()
         {
             InitializeComponent();
@@ -23,6 +24,8 @@ namespace BITMINDS.ventanas
             txtDeporte.Leave += controlador.LeaveTxt;
 
             btnGuardar.Click += controlador.BtnGuardar_Click;
+
+            Load += controlador.Ventana_Load;
         }
 
         private FormularioDeporteControlador controlador;

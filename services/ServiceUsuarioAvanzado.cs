@@ -17,5 +17,8 @@ namespace BITMINDS.services
         public List<Cliente> Clientes() => clienteRepositorio.ObtenerTodos();
         public List<Ejercicio> Ejercicios() => ejercicioRepositorio.ObtenerTodosEjercicios();
         public List<Deporte> Deportes() => deporteRepositorio.ObtenerDeportes();
+        public void EliminarCliente(int id) => clienteRepositorio.Eliminar(id);
+        public void EliminarEjercicio(int id) => ejercicioRepositorio.Eliminar(id);
+        public void EliminarDeporte(int id) => deporteRepositorio.Eliminar(id);
     }
 }

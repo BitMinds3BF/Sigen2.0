@@ -11,6 +11,12 @@ namespace BITMINDS.controladores
         private FormularioDeporteService service = new FormularioDeporteService();
         public FormularioDeporte Ventana {  get; set; }
 
+        public void Ventana_Load(object sender, EventArgs e)
+        {
+            var deporte = service.ObtenerDeporte(Ventana.Id);
+            Ventana.txtDeporte.Text = deporte.Nombre;
+        }
+
         public void BtnGuardar_Click(object sender, EventArgs e)
         {
             try

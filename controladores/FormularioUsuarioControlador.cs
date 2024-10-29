@@ -105,6 +105,10 @@ namespace BITMINDS.controladores
             return string.Empty;
         }
 
+        public void Ventana_Load(object sender, EventArgs e)
+        {
+           
+        }    
         public static FormularioUsuarioControlador Instance
         {
             get

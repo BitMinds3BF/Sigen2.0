@@ -188,40 +188,14 @@ namespace BITMINDS.repositorios.cliente
 
             return clientes;
         }
-
-        //public void Actualizar(Cliente cliente)
-        //{
-        //    string query = "UPDATE usuarios SET documento = @ci, tipo_doc = @tipo_doc, Nombre = @Nombre, " +
-        //        "Apellido = @Apellido, direccion = @direccion, departamento = @departamento, Telefonos = @Telefonos " +
-        //        "WHERE UsuarioId = @UsuarioId";
-
-        //    using (SqlConnection connection = new SqlConnection(connectionBuider.ConnectionString))
-        //    {
-        //        SqlCommand command = new SqlCommand(query, connection);
-        //        command.Parameters.AddWithValue("@ci", cliente.Documento);
-        //        command.Parameters.AddWithValue("@tipo_doc", cliente.TipoDocumento);
-        //        command.Parameters.AddWithValue("@nombre", cliente.Nombre);
-        //        command.Parameters.AddWithValue("@apellido", cliente.Apellido);
-        //        command.Parameters.AddWithValue("@direccion", cliente.Direccion);
-        //        command.Parameters.AddWithValue("@rol", cliente.Rol);
-        //        command.Parameters.AddWithValue("@tipo", cliente.Tipo);
-        //        command.Parameters.AddWithValue("@evolucion", cliente.Evolucion);
-        //        command.Parameters.AddWithValue("@grado_cumplimiento", cliente.Cumplimiento);
-
-
-        //        connection.Open();
-        //        command.ExecuteNonQuery();
-        //    }
-        //}
-
         public void Eliminar(int id)
         {
-            string query = "DELETE FROM usuarios WHERE usuario_id = @id";
+            string query = "DELETE FROM Usuario WHERE id_usuario = @id_usuario";
 
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
             {
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@id", id);
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@id_usuario", id);
 
                 connection.Open();
                 command.ExecuteNonQuery();

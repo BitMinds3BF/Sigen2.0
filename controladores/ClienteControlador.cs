@@ -27,7 +27,6 @@ namespace BITMINDS.controladores
 
         public void DgvItems_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
         {
-            Console.WriteLine(e.StateChanged);
             if (e.StateChanged == DataGridViewElementStates.Selected)
             {
                 ejercicioSelecionadoRowIndex = e.Row.Index;
