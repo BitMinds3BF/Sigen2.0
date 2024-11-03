@@ -16,9 +16,9 @@ namespace BITMINDS.repositorios
             string query = "INSERT INTO ejercicios(nombre, descripcion, grupomuscular, tipo, idrutina) " +
                 "VALUES (@nombre, @descripcion, @grupomuscular, @tipo, @idrutina)";
 
-            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+            using (var connection = new MySqlConnection(ConnectionString))
+            using (var command = new MySqlCommand(query, connection))
             {
-                MySqlCommand command = new MySqlCommand(query, connection);
                 command.Parameters.AddWithValue("@nombre", ejercicio.Nombre);
                 command.Parameters.AddWithValue("@descripcion", ejercicio.Descripcion);
                 command.Parameters.AddWithValue("@grupomuscular", ejercicio.GrupoMuscular);
@@ -32,33 +32,38 @@ namespace BITMINDS.repositorios
 
         public List<EjercicioAsignado> ObtenerEjerciciosAsignados(string documento, string tipo)
         {
-            string query = $"SELECT e.*, ad.repeticiones, ad.realizado_d FROM ejercicios e " +
-                $"INNER JOIN asigna_d ad ON e.id_ejer = ad.id_ejercicio " +
-                $"INNER JOIN cliente c ON c.num_doc = ad.num_doc AND c.tipo_doc = ad.tipo_doc " +
-                $"WHERE c.num_doc = '{documento}' AND c.tipo_doc = '{tipo}'";
+            string query = "SELECT e.*, ad.repeticiones, ad.realizado_d FROM ejercicios e " +
+                "INNER JOIN asigna_d ad ON e.id_ejer = ad.id_ejercicio " +
+                "INNER JOIN cliente c ON c.num_doc = ad.num_doc AND c.tipo_doc = ad.tipo_doc " +
+                "WHERE c.num_doc = @documento AND c.tipo_doc = @tipo_doc";
 
-            List<EjercicioAsignado> ejercicios = new List<EjercicioAsignado>();
-            using (MySqlConnection conn = new MySqlConnection(ConnectionString))
+            var ejercicios = new List<EjercicioAsignado>();
+            using (var conn = new MySqlConnection(ConnectionString))
+            using (var command = new MySqlCommand(query, conn))
             {
-                var cmd = new MySqlCommand(query, conn);
+                command.Parameters.AddWithValue("@documento", documento);
+                command.Parameters.AddWithValue("@tipo_doc", tipo);
+
                 conn.Open();
-                MySqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
+                using (var reader = command.ExecuteReader()) 
                 {
-                    ejercicios.Add
-                    (
-                        new EjercicioAsignado()
+                    while (reader.Read())
+                    {
+                        var ejercicio = new EjercicioAsignado()
                         {
-                            Id = Convert.ToInt32(reader["id_ejer"]),
-                            Nombre = reader["nombre"].ToString(),
-                            Descripcion = reader["descripcion"].ToString(),
-                            GrupoMuscular = reader["grupomuscular"].ToString(),
-                            Tipo = reader["tipo"].ToString(),
-                            Rutina = Convert.ToInt32(reader["idrutina"]),
-                            Repeticiones = Convert.ToInt32(reader["repeticiones"]),
-                            Realizado = reader["realizado_d"].ToString()
-                        }
-                    );
+                            Id = reader.GetInt32("id_ejer"),
+                            Nombre = reader.GetString("nombre"),
+                            Descripcion = reader.GetString("descripcion"),
+                            GrupoMuscular = reader.GetString("grupomuscular"),
+                            Tipo = reader.GetString("tipo"),
+                            Rutina = reader.GetInt32("idrutina"),
+                            Repeticiones = reader.GetInt32("repeticiones"),
+                            Realizado = !reader.IsDBNull(reader.GetOrdinal("realizado_d")) ?
+                                reader.GetDateTime("realizado_d").ToString("dd/MM/yyyy") : string.Empty
+                        };
+
+                        ejercicios.Add(ejercicio);
+                    }
                 }
             }
 
@@ -66,28 +71,28 @@ namespace BITMINDS.repositorios
         }
         public List<Ejercicio> ObtenerTodosEjercicios()
         {
-            string query = $"SELECT * FROM ejercicios";
+            string query = "SELECT * FROM ejercicios";
 
-            List<Ejercicio> ejercicios = new List<Ejercicio>();
-            using (MySqlConnection conn = new MySqlConnection(ConnectionString))
+            var ejercicios = new List<Ejercicio>();
+            using (var connection = new MySqlConnection(ConnectionString))
+            using (var command = new MySqlCommand(query, connection))
             {
-                var cmd = new MySqlCommand(query, conn);
-                conn.Open();
-                MySqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
+                connection.Open();
+                using (var reader = command.ExecuteReader())
                 {
-                    ejercicios.Add
-                    (
-                        new Ejercicio()
+                    while (reader.Read())
+                    {
+                        var ejercicio = new Ejercicio()
                         {
-                            Id = Convert.ToInt32(reader["id_ejer"]),
-                            Nombre = reader["nombre"].ToString(),
-                            Descripcion = reader["descripcion"].ToString(),
-                            GrupoMuscular = reader["grupomuscular"].ToString(),
-                            Tipo = reader["tipo"].ToString(),
+                            Id = reader.GetInt32("id_ejer"),
+                            Nombre = reader.GetString("nombre"),
+                            Descripcion = reader.GetString("descripcion"),
+                            GrupoMuscular = reader.GetString("grupomuscular"),
+                            Tipo = reader.GetString("tipo"),
+                        };
 
-                        }
-                    );
+                        ejercicios.Add(ejercicio);
+                    }
                 }
             }
 
@@ -97,13 +102,17 @@ namespace BITMINDS.repositorios
         public void GuardarEjercicioAsignadoCompletado(EjercicioAsignado ejercicio, string num_doc, string tipo_doc)
         {
             string query = "UPDATE asigna_d SET realizado_d = @realizado" +
-                $" WHERE num_doc = '{num_doc}' AND tipo_doc = '{tipo_doc}' AND id_ejercicio = {ejercicio.Id}";
+                " WHERE num_doc = @num_doc AND tipo_doc = @tipo_doc AND id_ejercicio = @id_ejercicio";
 
-            using (var conn = new MySqlConnection(ConnectionString))
+            using (var connection = new MySqlConnection(ConnectionString))
+            using (var command = new MySqlCommand(query, connection))
             {
-                var command = new MySqlCommand(query, conn);
                 command.Parameters.AddWithValue("@realizado", ejercicio.Realizado);
-                conn.Open();
+                command.Parameters.AddWithValue("@num_doc", num_doc);
+                command.Parameters.AddWithValue("@tipo_doc", tipo_doc);
+                command.Parameters.AddWithValue("@id_ejercicio", ejercicio.Id);
+
+                connection.Open();
                 command.ExecuteNonQuery();
             }
         }

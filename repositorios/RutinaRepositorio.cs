@@ -14,15 +14,16 @@ namespace BITMINDS.repositorios
             string query = "SELECT * FROM rutina";
 
             var rutinas = new List<int>();
-            using (MySqlConnection conn = new MySqlConnection(ConnectionString))
+            using (var connection = new MySqlConnection(ConnectionString))
+            using (var command = new MySqlCommand(query, connection))
             {
-                var cmd = new MySqlCommand(query, conn);
-                conn.Open();
-                var reader = cmd.ExecuteReader();
-
-                while(reader.Read())
+                connection.Open();
+                using (var reader = command.ExecuteReader())
                 {
-                    rutinas.Add(reader.GetInt32(0));
+                    while (reader.Read())
+                    {
+                        rutinas.Add(reader.GetInt32(0)); // 0 es la unica columna de la tabla rutina
+                    }
                 }
             }
 

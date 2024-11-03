@@ -2,6 +2,7 @@
 using MySqlConnector;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,24 +20,26 @@ namespace BITMINDS.repositorios
             var calificaciones = new List<Calificacion>();
 
             using (var conn = new MySqlConnection(ConnectionString))
+            using (var command = new  MySqlCommand(query, conn))
             {
-                var cmd = new MySqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@num_doc", num_doc);
-                cmd.Parameters.AddWithValue("@tipo_doc", tipo_doc);
+                command.Parameters.AddWithValue("@num_doc", num_doc);
+                command.Parameters.AddWithValue("@tipo_doc", tipo_doc);
 
                 conn.Open();
-                var reader = cmd.ExecuteReader();
-                while (reader.Read())
+                using (var reader = command.ExecuteReader())
                 {
-                    var calificacion = new Calificacion()
+                    while (reader.Read())
                     {
-                        Id = reader.GetInt32("id"),
-                        Item = reader.GetString("item"),
-                        Fecha = reader.GetDateTime("fecha").ToString("dd/MM/yyyy"),
-                        PuntajeObtenido = reader.GetInt32("puntaje_obtenido")
-                    };
+                        var calificacion = new Calificacion()
+                        {
+                            Id = reader.GetInt32("id"),
+                            Item = reader.GetString("item"),
+                            Fecha = reader.GetDateTime("fecha").ToString("dd/MM/yyyy"),
+                            PuntajeObtenido = reader.GetInt32("puntaje_obtenido")
+                        };
 
-                    calificaciones.Add(calificacion);
+                        calificaciones.Add(calificacion);
+                    }
                 }
             }
             
