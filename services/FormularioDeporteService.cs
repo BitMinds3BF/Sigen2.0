@@ -20,5 +20,7 @@ namespace BITMINDS.services
 
             repositorio.Insertar(deporte);
         }
+
+        public Deporte ObtenerDeporte(int id) => repositorio.ObtenerDeporte(id);
     }
 }

@@ -6,20 +6,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace BITMINDS.controladores
 {
     internal class UsuarioAvanzadoControlador
     {
         private ServiceUsuarioAvanzado service = new ServiceUsuarioAvanzado();
-        public UsuarioAvanzado ventana {  get; set; }
-
-        public void RadioButton_CheckedChanged (object sender, EventArgs e)
+        public UsuarioAvanzado ventana { get; set; }
+        private int filaSeleccionadaRowIndex;
+        private BindingSource binding = new BindingSource();
+        public void RadioButton_CheckedChanged(object sender, EventArgs e)
         {
             RadioButton radioButton = sender as RadioButton;
-            if (radioButton.Checked) 
+            if (radioButton.Checked)
             {
-                switch (radioButton.Name) 
+                switch (radioButton.Name)
                 {
                     case "radiobtnClientes":
                         mostrarClientes();
@@ -31,8 +33,8 @@ namespace BITMINDS.controladores
                         mostrarEjercicios();
                         break;
                 }
-                
-            } 
+
+            }
         }
 
         public void btnAddClick(object sender, EventArgs e)
@@ -43,34 +45,111 @@ namespace BITMINDS.controladores
 
                 formularioUsuario.ShowDialog();
             }
-            else if (ventana.radiobtnEjercicios.Checked) 
+            else if (ventana.radiobtnEjercicios.Checked)
             {
                 var formularioEjercicio = new ventanas.FormularioEjercicio();
 
                 formularioEjercicio.ShowDialog();
             }
-            else if (ventana.radiobtnDeportes.Checked) 
+            else if (ventana.radiobtnDeportes.Checked)
             {
                 var formularioDeporte = new ventanas.FormularioDeporte();
-                
+
                 formularioDeporte.ShowDialog();
             }
         }
 
+        public void DgvItems_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
+        {
+            if (e.StateChanged == DataGridViewElementStates.Selected)
+            {
+                filaSeleccionadaRowIndex = e.Row.Index;
+            }
+          
+        }
+        public void btnModiClick(object sender, EventArgs e)
+        {
+            if (binding.List.Count == 0)
+            {
+                return;
+            }
+
+            if (ventana.radiobtnClientes.Checked)
+            {
+                var formularioUsuario = new ventanas.FormularioUsuario();
+                var cliente = (modelos.Cliente)binding.List[filaSeleccionadaRowIndex];
+                formularioUsuario.Documento = cliente.NumDoc;
+                formularioUsuario.TipoDocumento = cliente.TipoDoc;
+                formularioUsuario.ShowDialog();
+            }
+            else if (ventana.radiobtnEjercicios.Checked)
+            {
+                var formularioEjercicio = new ventanas.FormularioEjercicio();
+                var ejercicio = (modelos.Ejercicio)binding.List[filaSeleccionadaRowIndex];
+                formularioEjercicio.Id = ejercicio.Id;
+                formularioEjercicio.ShowDialog();
+            }
+            else if (ventana.radiobtnDeportes.Checked)
+            {
+                var formularioDeporte = new ventanas.FormularioDeporte();
+                var deporte = (modelos.Deporte)binding.List[filaSeleccionadaRowIndex];
+                formularioDeporte.Id = deporte.Id; 
+                formularioDeporte.ShowDialog(); 
+            }
+        }
+
+        public void Ventana_Load(object sender, EventArgs e)
+        {
+            ventana.dataGridMostrar.DataSource = binding; 
+        }
         private void mostrarClientes() 
         {
             var clientes = service.Clientes();
-            ventana.dataGridMostrar.DataSource = clientes;
+            binding.DataSource = clientes;
+            binding.ResetBindings(false);
         }
         private void mostrarEjercicios() 
         {
             var ejercicios = service.Ejercicios();
-            ventana.dataGridMostrar.DataSource = ejercicios;
+            binding.DataSource = ejercicios;
+            binding.ResetBindings(false);
         }
         private void mostrarDeportes() 
         {
            var deportes = service.Deportes();
-           ventana.dataGridMostrar.DataSource= deportes;
+            binding.DataSource = deportes;
+            binding.ResetBindings(false);
+        }
+
+        public void btnEliminar()
+        {
+            if (binding.List.Count == 0)
+            {
+                return;
+            }
+
+            if (ventana.radiobtnClientes.Checked)
+            {
+                var cliente = (modelos.Cliente)binding.List[filaSeleccionadaRowIndex];
+                binding.List.Remove(filaSeleccionadaRowIndex);
+                binding.ResetBindings(false);
+                service.EliminarCliente(cliente.Id);
+            }
+            else if (ventana.radiobtnEjercicios.Checked)
+            {
+                var ejercicio = (modelos.Ejercicio)binding.List[filaSeleccionadaRowIndex];
+                binding.List.Remove(filaSeleccionadaRowIndex);
+                binding.ResetBindings(false);
+                service.EliminarEjercicio(ejercicio.Id);
+
+            }
+            else if (ventana.radiobtnDeportes.Checked) 
+            {
+                var deporte = (modelos.Deporte)binding.List[filaSeleccionadaRowIndex];
+                binding.List.Remove(filaSeleccionadaRowIndex);
+                binding.ResetBindings(false);
+                service.EliminarDeporte(deporte.Id);
+            }
         }
 
         public static UsuarioAvanzadoControlador Instance

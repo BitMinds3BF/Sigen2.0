@@ -116,5 +116,19 @@ namespace BITMINDS.repositorios
                 command.ExecuteNonQuery();
             }
         }
+        public void Eliminar(int id)
+        {
+            string query = "DELETE FROM ejercicios WHERE id_ejer = @id_ejer";
+
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+            {
+                MySqlCommand command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@id_ejer", id);
+
+                connection.Open();
+                command.ExecuteNonQuery();  
+            }
+
+        }
     }
 }

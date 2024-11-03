@@ -13,6 +13,8 @@ namespace BITMINDS.ventanas
 {
     public partial class FormularioUsuario : Form
     {
+        public string Documento { get; set; }
+        public string TipoDocumento { get; set; }
         public FormularioUsuario()
         {
             InitializeComponent();
@@ -49,6 +51,8 @@ namespace BITMINDS.ventanas
 
             txtNumero.Enter += controlador.EnterTxt;
             txtNumero.Leave += controlador.LeaveTxt;
+
+            Load += controlador.Ventana_Load;
         }
 
         private FormularioUsuarioControlador controlador;

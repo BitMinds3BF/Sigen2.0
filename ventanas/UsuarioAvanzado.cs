@@ -24,6 +24,11 @@ namespace BITMINDS.ventanas
             radiobtnClientes.CheckedChanged += controlador.RadioButton_CheckedChanged;
             radiobtnEjercicios.CheckedChanged += controlador.RadioButton_CheckedChanged;
             radiobtnDeportes.CheckedChanged += controlador.RadioButton_CheckedChanged;
+
+            btnModi.Click += controlador.btnModiClick;
+            dataGridMostrar.RowStateChanged += controlador.DgvItems_RowStateChanged;
+
+            Load += controlador.Ventana_Load;
         }
 
         private UsuarioAvanzadoControlador controlador;

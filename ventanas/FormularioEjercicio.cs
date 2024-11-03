@@ -13,6 +13,7 @@ namespace BITMINDS.ventanas
 {
     public partial class FormularioEjercicio : Form
     {
+        public int Id { get; set; }
         public FormularioEjercicio()
         {
             InitializeComponent();
