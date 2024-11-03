@@ -24,11 +24,11 @@ namespace BITMINDS.repositorios
 
         public Deporte ObtenerDeporte(int id)
         {
-            string query = "SELECT * FROM deporte WHERE id_deporte = @id";
+            string query = "SELECT * FROM deporte WHERE id_deporte = @id_deporte";
             using (var connection = new MySqlConnection(ConnectionString))
             using (var command = new MySqlCommand(query, connection))
             {
-                command.Parameters.AddWithValue("@id", id);
+                command.Parameters.AddWithValue("@id_deporte", id);
 
                 connection.Open();
                 using (var reader = command.ExecuteReader())
@@ -37,7 +37,7 @@ namespace BITMINDS.repositorios
 
                     return new Deporte()
                     {
-                        Id = reader.GetInt32("id"),
+                        Id = reader.GetInt32("id_deporte"),
                         Nombre = reader.GetString("deporte")
                     };
                 }
@@ -68,6 +68,21 @@ namespace BITMINDS.repositorios
             }
             return deportes;
         }
+
+        public void Actualizar(Deporte deporte)
+        {
+            string query = "UPDATE deporte SET deporte = @deporte" +
+                " WHERE id_deporte = @id_deporte";
+            using (var conn = new MySqlConnection(ConnectionString))
+            using (var command = new MySqlCommand(query, conn))
+            {
+                command.Parameters.AddWithValue("@deporte", deporte.Nombre);
+                command.Parameters.AddWithValue("@id_deporte", deporte.Id);
+                conn.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+
         public void Eliminar(int id)
         {
             string query = $"DELETE FROM Deporte WHERE id_deporte = @id_deporte";

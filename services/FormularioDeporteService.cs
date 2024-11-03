@@ -18,7 +18,16 @@ namespace BITMINDS.services
                 throw new Exception("El nombre del deporte no puede estar vacio");
             }
 
-            repositorio.Insertar(deporte);
+            if (deporte.Id > 0)
+            {
+                repositorio.Actualizar(deporte);
+
+            }
+            else 
+            {
+                repositorio.Insertar(deporte);
+            }
+            
         }
 
         public Deporte ObtenerDeporte(int id) => repositorio.ObtenerDeporte(id);
