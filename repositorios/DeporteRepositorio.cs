@@ -13,36 +13,37 @@ namespace BITMINDS.repositorios
         public void Insertar(Deporte deporte)
         {
             string query = "INSERT INTO deporte(deporte) VALUES(@deporte)";
-            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+            using (var connection = new MySqlConnection(ConnectionString))
+            using (var command = new MySqlCommand(query, connection))
             {
-                var command = new MySqlCommand(query, connection);
                 command.Parameters.AddWithValue("@deporte", deporte.Nombre);
+
                 connection.Open();
                 command.ExecuteNonQuery();
             }
         }
         public List<Deporte> ObtenerDeportes() 
         {
-            string query = $"SELECT * FROM deporte";
+            string query = "SELECT * FROM deporte";
 
-            List<Deporte> deportes = new List<Deporte>();
-            using (MySqlConnection conn = new MySqlConnection(ConnectionString))
+            var deportes = new List<Deporte>();
+            using (var connection = new MySqlConnection(ConnectionString))
+            using (var command = new MySqlCommand(query, connection))
             {
-                var cmd = new MySqlCommand(query, conn);
-                conn.Open();
-                MySqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
+                connection.Open();
+                using (var reader = command.ExecuteReader())
                 {
-                    deportes.Add
-                    (
-                        new Deporte()
+                    while (reader.Read())
+                    {
+                        var deporte = new Deporte()
                         {
-                            Id = Convert.ToInt32(reader["id_deporte"]),
-                            Nombre = reader["deporte"].ToString(),
+                            Id = reader.GetInt32("id_deporte"),
+                            Nombre = reader.GetString("deporte"),
+                        };
 
-                        }
-                    );
-                }   
+                        deportes.Add(deporte);
+                    }
+                }
             }
             return deportes;
         }
