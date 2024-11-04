@@ -87,7 +87,7 @@
             "-- Grupo muscular--",
             "Piernas",
             "Brazos",
-            "Pecho",
+            "Pectorales",
             "Espalda",
             "Hombros"});
             this.cboxGrupoMuscular.Location = new System.Drawing.Point(123, 266);

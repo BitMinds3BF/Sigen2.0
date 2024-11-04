@@ -7,7 +7,7 @@ namespace BITMINDS.services.login
     public class LoginService
     {
         private ClienteRepositorio Repositorio = new ClienteRepositorio();
-        public bool Login(string documento, string tipo, string contraseña)
+        public Cliente Login(string documento, string tipo, string contraseña)
         {
             if (tipo != "documento" && tipo != "pasaporte")
             {
@@ -32,7 +32,7 @@ namespace BITMINDS.services.login
             }
 
 
-            return true;
+            return cliente;
         }
     }
 }

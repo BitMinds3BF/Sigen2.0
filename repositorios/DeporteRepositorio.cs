@@ -88,9 +88,9 @@ namespace BITMINDS.repositorios
         {
             string query = $"DELETE FROM Deporte WHERE id_deporte = @id_deporte";
 
-            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+            using (var connection = new MySqlConnection(ConnectionString))
+            using (var command  = new MySqlCommand(query, connection))
             {
-                MySqlCommand command = new MySqlCommand(query, connection);
                 command.Parameters.AddWithValue("@id_deporte", id);
 
                 connection.Open();

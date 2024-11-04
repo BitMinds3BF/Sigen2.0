@@ -3,6 +3,7 @@ using BITMINDS.ventanas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Channels;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -44,18 +45,21 @@ namespace BITMINDS.controladores
                 var formularioUsuario = new ventanas.FormularioUsuario();
 
                 formularioUsuario.ShowDialog();
+                mostrarClientes();
             }
             else if (ventana.radiobtnEjercicios.Checked)
             {
                 var formularioEjercicio = new ventanas.FormularioEjercicio();
 
                 formularioEjercicio.ShowDialog();
+                mostrarEjercicios();
             }
             else if (ventana.radiobtnDeportes.Checked)
             {
                 var formularioDeporte = new ventanas.FormularioDeporte();
 
                 formularioDeporte.ShowDialog();
+                mostrarDeportes();
             }
         }
 
@@ -81,6 +85,7 @@ namespace BITMINDS.controladores
                 formularioUsuario.Documento = cliente.NumDoc;
                 formularioUsuario.TipoDocumento = cliente.TipoDoc;
                 formularioUsuario.ShowDialog();
+                mostrarClientes();
             }
             else if (ventana.radiobtnEjercicios.Checked)
             {
@@ -88,19 +93,21 @@ namespace BITMINDS.controladores
                 var ejercicio = (modelos.Ejercicio)binding.List[filaSeleccionadaRowIndex];
                 formularioEjercicio.Id = ejercicio.Id;
                 formularioEjercicio.ShowDialog();
+                mostrarEjercicios();
             }
             else if (ventana.radiobtnDeportes.Checked)
             {
                 var formularioDeporte = new ventanas.FormularioDeporte();
                 var deporte = (modelos.Deporte)binding.List[filaSeleccionadaRowIndex];
                 formularioDeporte.Id = deporte.Id; 
-                formularioDeporte.ShowDialog(); 
+                formularioDeporte.ShowDialog();
+                mostrarDeportes();
             }
         }
 
         public void Ventana_Load(object sender, EventArgs e)
         {
-            ventana.dataGridMostrar.DataSource = binding; 
+            ventana.dataGridMostrar.DataSource = binding;
         }
         private void mostrarClientes() 
         {
@@ -121,7 +128,7 @@ namespace BITMINDS.controladores
             binding.ResetBindings(false);
         }
 
-        public void btnEliminar()
+        public void btnEliminar(object sender, EventArgs e)
         {
             if (binding.List.Count == 0)
             {
@@ -131,25 +138,26 @@ namespace BITMINDS.controladores
             if (ventana.radiobtnClientes.Checked)
             {
                 var cliente = (modelos.Cliente)binding.List[filaSeleccionadaRowIndex];
-                binding.List.Remove(filaSeleccionadaRowIndex);
-                binding.ResetBindings(false);
-                service.EliminarCliente(cliente.Id);
+                service.EliminarCliente(cliente.NumDoc, cliente.TipoDoc);
+                mostrarClientes();
             }
             else if (ventana.radiobtnEjercicios.Checked)
             {
                 var ejercicio = (modelos.Ejercicio)binding.List[filaSeleccionadaRowIndex];
-                binding.List.Remove(filaSeleccionadaRowIndex);
-                binding.ResetBindings(false);
                 service.EliminarEjercicio(ejercicio.Id);
-
+                mostrarEjercicios();
             }
             else if (ventana.radiobtnDeportes.Checked) 
             {
                 var deporte = (modelos.Deporte)binding.List[filaSeleccionadaRowIndex];
-                binding.List.Remove(filaSeleccionadaRowIndex);
-                binding.ResetBindings(false);
                 service.EliminarDeporte(deporte.Id);
+                mostrarDeportes();
             }
+        }
+
+        public void BtnCerrarSesion_Click(object sender, EventArgs e)
+        {
+            ventana.Close();
         }
 
         public static UsuarioAvanzadoControlador Instance

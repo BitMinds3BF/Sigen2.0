@@ -28,9 +28,11 @@ namespace BITMINDS.controladores
 
                     Rol = Ventana.cboxRol.Text.ToLower()
                 };
-                service.GuardarUsuario(usuario);
+                bool actualizar = Ventana.Documento != string.Empty &&  Ventana.TipoDocumento != string.Empty;
 
-                if (Ventana.cboxRol.SelectedItem.ToString().ToLower() == "cliente")
+                service.GuardarUsuario(usuario, actualizar);
+
+                if (!actualizar && Ventana.cboxRol.SelectedItem.ToString().ToLower() == "cliente")
                 {
                     string tipoCliente = Ventana.cboxTipoCliente.SelectedItem.ToString().ToLower();
                     service.GuardarCliente(usuario, tipoCliente);
@@ -107,7 +109,25 @@ namespace BITMINDS.controladores
 
         public void Ventana_Load(object sender, EventArgs e)
         {
-           
+            if (Ventana.Documento != string.Empty &&  Ventana.TipoDocumento != string.Empty)
+            {
+                Ventana.cboxTipoDocumento.Enabled = false;
+                Ventana.txtDocumento.Enabled = false;
+                Ventana.cboxTipoCliente.Enabled = false;
+                Ventana.btnGenerarContraseña.Enabled = false;
+
+                var cliente = service.ObtenerCliente(Ventana.Documento, Ventana.TipoDocumento);
+                Ventana.cboxTipoDocumento.Text = cliente.TipoDoc;
+                Ventana.txtDocumento.Text = cliente.NumDoc;
+                Ventana.txtNombre.Text = cliente.Nombre;
+                Ventana.txtApellido.Text = cliente.Apellido;
+                Ventana.txtDepartamento.Text = cliente.Departamento;
+                Ventana.txtCalle.Text = cliente.Calle;
+                Ventana.txtNumero.Text = cliente.Numero;
+                Ventana.txtEmail.Text = cliente.Email;
+
+                Ventana.cboxRol.Text = cliente.Rol;
+            }
         }    
         public static FormularioUsuarioControlador Instance
         {

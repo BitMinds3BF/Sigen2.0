@@ -37,26 +37,31 @@ namespace BITMINDS.controladores
         {
             try
             {
-                bool successLogin = service.Login
+                var cliente = service.Login
                 (
                     ventana.txtDocumento.Text,
                     ventana.cboxTipoDocumento.Text.ToLower(),
                     ventana.txtContraseña.Text
                 );
-
-                if (successLogin)
+                LimpiarCampos();
+                switch (cliente.Rol)    
                 {
-                    MessageBox.Show("Logueado correctamente!");
-                    string documento = ventana.txtDocumento.Text;
-                    string tipoDocumento = ventana.cboxTipoDocumento.Text;
-                    LimpiarCampos();
-                    var cliente = new ventanas.Cliente();
-                    cliente.Documento = documento;
-                    cliente.TipoDocumento = tipoDocumento;
+                    case "cliente":
+                        var ventanaCliente = new ventanas.Cliente();
+                        ventanaCliente.Documento = cliente.NumDoc;
+                        ventanaCliente.TipoDocumento = cliente.TipoDoc;
 
-                    ventana.Hide();
-                    cliente.ShowDialog();
-                    ventana.Show();
+                        ventana.Hide();
+                        ventanaCliente.ShowDialog();
+                        ventana.Show();
+                        break;
+                    case "admin":
+                        var usuarioAvanzado = new ventanas.UsuarioAvanzado();
+
+                        ventana.Hide();
+                        usuarioAvanzado.ShowDialog();
+                        ventana.Show();
+                        break;
                 }
             }
             catch (Exception ex)

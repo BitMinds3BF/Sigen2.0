@@ -30,7 +30,7 @@ namespace BITMINDS.services
             return BCrypt.Net.BCrypt.EnhancedHashPassword(contraseñaGenerada);
         }
 
-        public void GuardarUsuario(Cliente cliente)
+        public void GuardarUsuario(Cliente cliente, bool actualizar = false)
         {
             if (cliente.TipoDoc != "documento" && cliente.TipoDoc != "pasaporte")
             {
@@ -66,14 +66,21 @@ namespace BITMINDS.services
                 throw new Exception("El email no es valido");
             }
 
-            if (contraseñaGenerada == null)
+            if (actualizar)
             {
-                throw new Exception("No se ha generado una contraseña");
+                ClienteRepositorio.Actualizar(cliente);
             }
+            else
+            {
+                if (contraseñaGenerada == null)
+                {
+                    throw new Exception("No se ha generado una contraseña");
+                }
 
-            ClienteRepositorio.Insertar(cliente);
-            int idUsuario = ClienteRepositorio.InsertarUsuario(cliente, ObtenerContraseñaEncriptada());
-            ClienteRepositorio.InsertarLoguea(cliente.NumDoc, cliente.TipoDoc, idUsuario);
+                ClienteRepositorio.Insertar(cliente);
+                int idUsuario = ClienteRepositorio.InsertarUsuario(cliente, ObtenerContraseñaEncriptada());
+                ClienteRepositorio.InsertarLoguea(cliente.NumDoc, cliente.TipoDoc, idUsuario);
+            }
         }
 
         public void GuardarCliente(Cliente cliente, string tipoCliente)
@@ -95,5 +102,7 @@ namespace BITMINDS.services
             var regex = new Regex(patron, RegexOptions.IgnoreCase);
             return regex.IsMatch(email);
         }
+
+        public Cliente ObtenerCliente(string documento, string tipoDocumento) => ClienteRepositorio.ObtenerCliente(documento, tipoDocumento);
     }
 }

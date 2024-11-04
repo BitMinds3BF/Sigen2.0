@@ -17,6 +17,17 @@ namespace BITMINDS.controladores
         public void Ventana_onLoad(object sender, EventArgs e)
         {
             Ventana.cboxRutinas.DataSource = service.Rutinas();
+            if (Ventana.Id > 0) 
+            {
+                var ejercicio = service.ObtenerEjercicio(Ventana.Id);
+                Ventana.txtNombre.Text = ejercicio.Nombre;
+                Ventana.txtDescripcion.Text = ejercicio.Descripcion;
+                Ventana.cboxGrupoMuscular.Text = ejercicio.GrupoMuscular;
+                Ventana.cboxTipo.Text = ejercicio.Tipo;
+                Ventana.cboxRutinas.Text = ejercicio.Rutina.ToString();
+            }
+            
+            
         }
         public void BtnGuardar_Click(object sender, EventArgs e)
         {
@@ -24,6 +35,7 @@ namespace BITMINDS.controladores
             {
                 var ejercicio = new modelos.Ejercicio()
                 {
+                    Id = Ventana.Id,
                     Nombre = Ventana.txtNombre.Text,
                     Descripcion = Ventana.txtDescripcion.Text,
                     GrupoMuscular = Ventana.cboxGrupoMuscular.Text.ToLower(),

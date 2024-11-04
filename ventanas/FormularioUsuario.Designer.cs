@@ -264,11 +264,11 @@
         public System.Windows.Forms.TextBox txtNumero;
         public System.Windows.Forms.TextBox txtCalle;
         public System.Windows.Forms.TextBox txtDepartamento;
-        private System.Windows.Forms.Button btnGenerarContraseña;
         private System.Windows.Forms.Button btnGuardar;
         public System.Windows.Forms.TextBox txtApellido;
         public System.Windows.Forms.TextBox txtContraseña;
         public System.Windows.Forms.ComboBox cboxRol;
         public System.Windows.Forms.ComboBox cboxTipoCliente;
+        public System.Windows.Forms.Button btnGenerarContraseña;
     }
 }

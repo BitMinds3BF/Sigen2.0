@@ -26,7 +26,7 @@ namespace BITMINDS.services
             }
 
             if (ejercicio.GrupoMuscular != "piernas" && ejercicio.GrupoMuscular != "brazos" &&
-                ejercicio.GrupoMuscular != "pecho" && ejercicio.GrupoMuscular != "espalda" &&
+                ejercicio.GrupoMuscular != "pectorales" && ejercicio.GrupoMuscular != "espalda" &&
                 ejercicio.GrupoMuscular != "hombros")
             {
                 throw new Exception("Grupo muscular invalido");
@@ -37,9 +37,18 @@ namespace BITMINDS.services
                 throw new Exception("Tipo de ejercicio invalido");
             }
 
-            repositorio.Insertar(ejercicio);
+            if (ejercicio.Id > 0)
+            {
+                repositorio.Actualizar(ejercicio);
+            }
+            else
+            {
+                repositorio.Insertar(ejercicio);
+
+            }
         }
 
         public List<int> Rutinas() => rutinaRepositorio.ObtenerRutinas();
+        public Ejercicio ObtenerEjercicio(int id) => repositorio.ObtenerEjercicio(id);
     }
 }

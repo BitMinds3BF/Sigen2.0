@@ -165,6 +165,9 @@ namespace BITMINDS.repositorios.cliente
                             Calle = reader.GetString("calle"),
                             Numero = reader.GetString("numero"),
 
+                            Rol = reader.GetString("rol"),
+                            Id = reader.GetInt32("id_usuario")
+
                         };
 
                         clientes.Add(cliente);
@@ -174,14 +177,37 @@ namespace BITMINDS.repositorios.cliente
 
             return clientes;
         }
-        public void Eliminar(int id)
-        {
-            string query = "DELETE FROM Usuario WHERE id_usuario = @id_usuario";
 
-            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+        public void Actualizar(Cliente cliente)
+        {
+            string query = "UPDATE cliente SET nombre = @nombre, apellido = @apellido," +
+                " departamento = @departamento, calle = @calle, numero = @numero," +
+                " email = @email WHERE num_doc = @num_doc AND tipo_doc = @tipo_doc";
+            using (var connection = new MySqlConnection(ConnectionString))
+            using (var command = new MySqlCommand(query, connection)) 
             {
-                MySqlCommand command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@id_usuario", id);
+                command.Parameters.AddWithValue("@nombre", cliente.Nombre);
+                command.Parameters.AddWithValue("@apellido", cliente.Apellido);
+                command.Parameters.AddWithValue("@departamento", cliente.Departamento);
+                command.Parameters.AddWithValue("@calle", cliente.Calle);
+                command.Parameters.AddWithValue("@numero", cliente.Numero);
+                command.Parameters.AddWithValue("@email", cliente.Email);
+                command.Parameters.AddWithValue("@num_doc", cliente.NumDoc);
+                command.Parameters.AddWithValue("@tipo_doc", cliente.TipoDoc);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+        public void Eliminar(string num_doc, string tipo_doc)
+        {
+            string query = "DELETE FROM Cliente WHERE num_doc = @num_doc AND tipo_doc = @tipo_doc";
+
+            using (var connection = new MySqlConnection(ConnectionString))
+            using (var command = new MySqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@num_doc", num_doc);
+                command.Parameters.AddWithValue("@tipo_doc", tipo_doc);
 
                 connection.Open();
                 command.ExecuteNonQuery();

@@ -91,10 +91,16 @@
             // 
             this.dataGridMostrar.AllowUserToAddRows = false;
             this.dataGridMostrar.AllowUserToDeleteRows = false;
+            this.dataGridMostrar.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridMostrar.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
+            this.dataGridMostrar.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridMostrar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridMostrar.Location = new System.Drawing.Point(22, 133);
+            this.dataGridMostrar.MultiSelect = false;
             this.dataGridMostrar.Name = "dataGridMostrar";
             this.dataGridMostrar.ReadOnly = true;
+            this.dataGridMostrar.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.dataGridMostrar.RowHeadersVisible = false;
             this.dataGridMostrar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridMostrar.Size = new System.Drawing.Size(615, 305);
             this.dataGridMostrar.TabIndex = 12;
@@ -107,7 +113,6 @@
             this.radiobtnClientes.Name = "radiobtnClientes";
             this.radiobtnClientes.Size = new System.Drawing.Size(82, 21);
             this.radiobtnClientes.TabIndex = 16;
-            this.radiobtnClientes.TabStop = true;
             this.radiobtnClientes.Text = "CLIENTES";
             this.radiobtnClientes.UseVisualStyleBackColor = true;
             // 
@@ -120,7 +125,6 @@
             this.radiobtnEjercicios.Name = "radiobtnEjercicios";
             this.radiobtnEjercicios.Size = new System.Drawing.Size(94, 21);
             this.radiobtnEjercicios.TabIndex = 17;
-            this.radiobtnEjercicios.TabStop = true;
             this.radiobtnEjercicios.Text = "EJERCICIOS";
             this.radiobtnEjercicios.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.radiobtnEjercicios.UseVisualStyleBackColor = true;
@@ -133,7 +137,6 @@
             this.radiobtnDeportes.Name = "radiobtnDeportes";
             this.radiobtnDeportes.Size = new System.Drawing.Size(89, 21);
             this.radiobtnDeportes.TabIndex = 18;
-            this.radiobtnDeportes.TabStop = true;
             this.radiobtnDeportes.Text = "DEPORTES";
             this.radiobtnDeportes.UseVisualStyleBackColor = true;
             // 

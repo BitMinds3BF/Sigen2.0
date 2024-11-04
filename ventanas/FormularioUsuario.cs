@@ -13,8 +13,8 @@ namespace BITMINDS.ventanas
 {
     public partial class FormularioUsuario : Form
     {
-        public string Documento { get; set; }
-        public string TipoDocumento { get; set; }
+        public string Documento { get; set; } = string.Empty;
+        public string TipoDocumento { get; set; } = string.Empty;
         public FormularioUsuario()
         {
             InitializeComponent();

@@ -69,6 +69,32 @@ namespace BITMINDS.repositorios
 
             return ejercicios;
         }
+
+        public Ejercicio ObtenerEjercicio(int id) 
+        {
+            string query = "SELECT * FROM ejercicios WHERE id_ejer = @id_ejer ";
+            using (var conn = new MySqlConnection(ConnectionString))
+            using (var command = new MySqlCommand(query, conn)) 
+            {
+                command.Parameters.AddWithValue("id_ejer", id);
+
+                conn.Open();
+                using(var reader = command.ExecuteReader())
+                {
+                    reader.Read();
+
+                    return new Ejercicio()
+                    {
+                        Id = reader.GetInt32("id_ejer"),
+                        Nombre = reader.GetString("nombre"),
+                        GrupoMuscular = reader.GetString("grupomuscular"),
+                        Tipo = reader.GetString("tipo"),
+                        Descripcion = reader.GetString("descripcion"),
+                        Rutina = reader.GetInt32("idrutina"),
+                    };
+                }
+            } 
+        }
         public List<Ejercicio> ObtenerTodosEjercicios()
         {
             string query = "SELECT * FROM ejercicios";
@@ -89,6 +115,7 @@ namespace BITMINDS.repositorios
                             Descripcion = reader.GetString("descripcion"),
                             GrupoMuscular = reader.GetString("grupomuscular"),
                             Tipo = reader.GetString("tipo"),
+                            Rutina = reader.GetInt32("idrutina"),
                         };
 
                         ejercicios.Add(ejercicio);
@@ -116,17 +143,38 @@ namespace BITMINDS.repositorios
                 command.ExecuteNonQuery();
             }
         }
+
+        public void Actualizar(Ejercicio ejercicio)
+        {
+            string query = "UPDATE ejercicios SET nombre = @nombre, grupomuscular = @grupomuscular" +
+                ", tipo = @tipo, descripcion = @descripcion, idrutina = @idrutina " +
+                " WHERE id_ejer = @id_ejer ";
+            using (var conn = new MySqlConnection(ConnectionString))
+            using (var command = new MySqlCommand(query, conn))
+            {
+                command.Parameters.AddWithValue("@nombre", ejercicio.Nombre);
+                command.Parameters.AddWithValue("@grupomuscular", ejercicio.GrupoMuscular);
+                command.Parameters.AddWithValue("@tipo", ejercicio.Tipo);
+                command.Parameters.AddWithValue("@descripcion", ejercicio.Descripcion);
+                command.Parameters.AddWithValue("@idrutina", ejercicio.Rutina);
+                command.Parameters.AddWithValue("@id_ejer", ejercicio.Id);
+
+                conn.Open();
+                command.ExecuteNonQuery();
+            }
+                   
+        }
         public void Eliminar(int id)
         {
             string query = "DELETE FROM ejercicios WHERE id_ejer = @id_ejer";
 
-            using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+            using (var connection = new MySqlConnection(ConnectionString))
+            using (var command = new MySqlCommand(query, connection))
             {
-                MySqlCommand command = new MySqlCommand(query, connection);
                 command.Parameters.AddWithValue("@id_ejer", id);
 
                 connection.Open();
-                command.ExecuteNonQuery();  
+                command.ExecuteNonQuery();
             }
 
         }
